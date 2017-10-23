@@ -19,14 +19,32 @@ $container = $kernel->getContainer();
 $container->enterScope('request');
 $container->set('request', $request);
 
-//setup done
+
+/**** MAIN ENTRY HERE ****/
+
+use Yoda\EventBundle\Entity\Event;
+
 $templating = $container->get('templating');
 
-echo $templating->render(
-    'EventBundle:Default:index.html.twig',
-     array(
-        'firstName' => 'Yoda',
-        'count' => 5,
-		'status' => 'It\'s a traaaaaaaap!',
-     )
-);
+//set column values for the new record
+$event = new Event();
+$event->setName('Darth\'s surprise birthday party');
+$event->setLocation('Deathstar');
+$event->setTime(new \DateTime('tomorrow noon'));
+// $event->setDetails('Ha! Darth HATES surprises!!!!');
+
+//get object manager for the Event entity
+$em = $container->get('doctrine')->getManager();
+
+//save the new object
+// $em->persist($event);
+// $em->flush();
+
+
+$repo = $em->getRepository('EventBundle:Event');
+
+$event = $repo->findOneBy(array(
+	'name' => 'Darth\'s surprise birthday party',
+));
+
+dump($event);
