@@ -105,6 +105,11 @@ class Event
     {
         return $this->time;
     }
+	
+	public function getTimeString()
+	{
+		return $this->time->format('g:ia / l M j, Y'); 		
+	}
 
     /**
      * Set location
