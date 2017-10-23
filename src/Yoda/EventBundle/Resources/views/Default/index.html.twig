@@ -1,1 +1,12 @@
-Hello World!
+{# src/Yoda/EventBundle/Resources/views/Default/index.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title 'Some Twiggy Goodness' %}
+
+{% block body %}
+	First name: {{ firstName }}
+	<br>
+	Count: {{ count }}!
+	<br>
+	Status: {{ status }}!
+{% endblock %}
