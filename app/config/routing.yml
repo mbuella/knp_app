@@ -5,3 +5,8 @@ event:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+# FosUserBundle routes
+_user_import:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    

@@ -9,11 +9,32 @@
 				Events from a Galaxy, far far away
 			{%- endif -%}
 		</title>
-        {% block stylesheets %}{% endblock %}
+		{% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <body>	
+        <header class="header">
+			{% if is_granted('ROLE_USER') %}
+				<a href="{{ path('fos_user_security_logout') }}">Logout</a>
+			{% else %}
+				<a href="{{ path('fos_user_security_login') }}">Login</a>
+				<a href="{{ path('fos_user_registration_register') }}">Register</a>
+			{% endif %}
+        </header>
+		<div class="main-content">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>
